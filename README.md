@@ -34,7 +34,7 @@ Create your custom handler anywhere in the app.
 # app/handlers/record_not_found_handler.rb
 class RecordNotFoundHandler < DealWithIt::Handler
   deal ActiveRecord::RecordNotFound, with: ->(error) do
-    render json: { 'Oopsie, we didn\'t found that stuff' }, status: :not_found
+    render json: { message: 'Oopsie, we didn\'t found that stuff' }, status: :not_found
   end
 end
 ```

@@ -1,7 +1,5 @@
 class DealWithIt::Handler
-  DEFAULT_EXCEPTION_HANDLER = ->(error) do
-    raise error
-  end.freeze
+  DEFAULT_EXCEPTION_HANDLER = ->(error) { raise error }.freeze
 
   attr_reader :exception, :callback
 
