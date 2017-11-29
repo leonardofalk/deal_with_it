@@ -1,0 +1,42 @@
+version:               2
+jobs:
+  build:
+    docker:
+       - image:        circleci/ruby:2.4.1-node-browsers
+    working_directory: ~/deal_with_it
+    parallelism:       4
+    branches:
+      only:
+        - master
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - deal_with_it-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          - deal_with_it-master-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name:        Bundle Install
+          command:     |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key:         deal_with_it-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name:        Test Suite
+          command:     |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            "${TEST_FILES}"
+
+      - run:
+          name:        Test Coverage Report
+          command:     bundle exec codeclimate-test-reporter

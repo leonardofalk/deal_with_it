@@ -2,6 +2,8 @@
 
 ![DealWithIt](./dealwithit.png)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/5a6d137b4cce891bc9de/maintainability)](https://codeclimate.com/github/leonardofalk/deal_with_it/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5a6d137b4cce891bc9de/test_coverage)](https://codeclimate.com/github/leonardofalk/deal_with_it/test_coverage) [![CircleCI](https://circleci.com/gh/leonardofalk/deal_with_it.svg?style=svg)](https://circleci.com/gh/leonardofalk/deal_with_it)
+
 ## Installation
 
 Add this line to your application's Gemfile:
