@@ -2,7 +2,7 @@ version:               2
 jobs:
   build:
     docker:
-       - image:        circleci/ruby:2.4.1-node-browsers
+       - image:        circleci/ruby:2.5.1-node-browsers
     working_directory: ~/deal_with_it
     parallelism:       4
     branches:
@@ -30,12 +30,10 @@ jobs:
           name:        Test Suite
           command:     |
             mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
 
             bundle exec rspec --format progress \
                             --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            "${TEST_FILES}"
+                            --format progress
 
       - run:
           name:        Test Coverage Report
